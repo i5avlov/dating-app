@@ -1,3 +1,4 @@
+const ValidationError = require('../errors/ValidationError');
 const User = require('../models/User'); 
 
 module.exports = {
@@ -5,13 +6,13 @@ module.exports = {
         const { username, email, password, repeatPassword } = registerData; 
 
         // User exists 
-        if (userExistsByEmail(email)) { 
-            throw new Error(''); 
+        if (await userExistsByEmail(email)) { 
+            throw new ValidationError('email', 'User exists'); 
         }
 
         // Passwords do not match 
         if (password !== repeatPassword) { 
-            throw new Error('');  
+            throw new ValidationError('passwords', 'Passwords do not match');  
         }
 
         return User.create({ username, email, password }); 
