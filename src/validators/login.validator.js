@@ -1,0 +1,23 @@
+const validator = require('express-validator'); 
+
+const validation = () => { 
+    return [
+        validator.body('email') 
+            .trim() 
+            .isEmail(), 
+        validator.body('password') 
+            .trim() 
+            .isLength({ min: 6 }) 
+
+    ]; 
+
+}; 
+
+const validate = (req) => { 
+    return validator.validationResult(req); 
+}; 
+
+module.exports = { 
+    validation, 
+    validate 
+}; 

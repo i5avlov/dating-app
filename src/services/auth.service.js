@@ -17,10 +17,26 @@ module.exports = {
 
         return User.create({ username, email, password }); 
 
+    }, 
+
+    login: async (loginData) => { 
+        const { email, password } = loginData; 
+
+        const user = await getUserByEmail(email); 
+
+        if (user === null || user.password !== password) { 
+            throw new ValidationError('login', 'Email or password error'); 
+        } 
+
+        return user; 
     }
 } 
 
 async function userExistsByEmail(email) {
     const user = await User.findOne({ email: email }); 
     return user !== null; 
+} 
+
+function getUserByEmail(email) {
+    return User.findOne({ email: email }); 
 }

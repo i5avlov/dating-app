@@ -1,5 +1,6 @@
 const authService = require('../services/auth.service'); 
 const { normalize } = require('../utils/error.utils');
+const loginValidator = require('../validators/login.validator');
 const registerValidator = require('../validators/register.validator');
 
 const authController = require('express').Router(); 
@@ -20,6 +21,27 @@ authController
         } catch (err) { 
             // console.log(err); 
             return res.render('auth/register', { registerData, errors: normalize(err) }); 
+        }
+
+        res.redirect('/'); 
+        
+    }); 
+
+authController
+    .get('/login', (req, res) => { 
+        res.render('auth/login'); 
+    }) 
+    .post('/login', loginValidator.validation(), async (req, res) => { 
+        const loginData = req.body; 
+        const errors = loginValidator.validate(req); 
+            
+        try { 
+            if (!errors.isEmpty()) { 
+                throw errors; 
+            } 
+            await authService.login(loginData); 
+        } catch (err) { 
+            return res.render('auth/login', { loginData, errors: normalize(err) }); 
         }
 
         res.redirect('/'); 
