@@ -11,7 +11,7 @@ usersController
 usersController 
     .get('/profile', async (req, res) => { 
         // const userId = req.params.userId; 
-        const userId = await usersService.getUserIdByEmail('is@softuni.bg'); 
+        const userId = req.user.id; 
         const userData = await usersService.getById(userId).lean(); 
         const likedUsers = await usersService.getLikedUsers(userId).lean(); 
         const likedByUsers = await usersService.getLikedByUsers(userId).lean(); 
@@ -21,7 +21,7 @@ usersController
 
 usersController
     .post('/like', async (req, res) => { 
-        const userId = await usersService.getUserIdByEmail('is@softuni.bg'); 
+        const userId = req.user.id; 
         const otherUserId = req.body['user-id']; 
 
         await usersService.toggleLike(userId, otherUserId); 
