@@ -25,4 +25,13 @@
         <li><a href="/users?pageNumber={{this}}&usersPerPageCount={{../paginationData.usersPerPageCount}}">{{this}}</a></li> 
         {{/each}} 
     </ul> 
+
+    <form id="usersPerPageChange" action="/users" method="POST" onchange="this.submit();"> 
+        <label class="form-label" for="">Users per page</label>
+        <select name="usersPerPageCount" class="form-control" id=""> 
+            {{#each paginationData.usersPerPageOptions}}
+            <option value="{{this}}" {{selectedOnEqual this ../paginationData.usersPerPageCount}}>{{this}}</option> 
+            {{/each}} 
+        </select>
+    </form>
 </div>

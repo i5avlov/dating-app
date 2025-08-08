@@ -24,7 +24,8 @@ module.exports = {
                 .lean(), 
             pageNumber, 
             usersPerPageCount, 
-            pagesList: getPagesList(pagesCount) 
+            pagesList: getPagesList(pagesCount), 
+            usersPerPageOptions: PAGINATION.USERS_PER_PAGE_OPTIONS 
         }; 
     }, 
 

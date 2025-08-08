@@ -9,6 +9,12 @@ usersController
         let paginationData = await usersService.getPaginated(pageNumber, usersPerPageCount); 
 
         res.render('users/index', { paginationData }); 
+    }) 
+    .post('/', async (req, res) => { 
+        let { usersPerPageCount } = req.body; 
+        let paginationData = await usersService.getPaginated(1, usersPerPageCount); 
+
+        res.render('users/index', { paginationData }); 
     }); 
 
 usersController 
