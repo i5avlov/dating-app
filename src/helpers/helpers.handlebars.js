@@ -1,6 +1,6 @@
 module.exports = { 
-    selectedOnEqual: (currentOption, targetOption) => { 
-        return currentOption === targetOption ? 'selected' : ''; 
+    markOnEqual: (currentOption, targetOption, mark) => { 
+        return currentOption === targetOption ? mark : ''; 
     }
 
 }; 
