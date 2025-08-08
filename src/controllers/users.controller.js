@@ -1,4 +1,4 @@
-const { PAGINATION } = require('../constants/users.constants');
+const { PAGINATION, USER_LIKE_POST_RESPONSE_CODE } = require('../constants/users.constants');
 const usersService = require('../services/users.service');
 
 const usersController = require('express').Router(); 
@@ -35,7 +35,7 @@ usersController
 
         await usersService.toggleLike(userId, otherUserId); 
 
-        res.redirect('/'); 
+        res.sendStatus(USER_LIKE_POST_RESPONSE_CODE); 
         
     }); 
 
