@@ -13,11 +13,6 @@ const userSchema = new Schema({
     }] 
 }); 
 
-// User password hashing 
-userSchema.pre('save', async function() { 
-    this.password = await bcrypt.hash(this.password, 10); 
-}); 
-
 const User = model('User', userSchema); 
 
 module.exports = User; 

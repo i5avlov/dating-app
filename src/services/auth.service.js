@@ -1,4 +1,4 @@
-const { TOKEN } = require('../constants/security.constants'); 
+const { TOKEN, PASSWORD } = require('../constants/security.constants'); 
 const ValidationError = require('../errors/ValidationError');
 const User = require('../models/User'); 
 const bcrypt = require('bcrypt'); 
@@ -17,9 +17,12 @@ module.exports = {
         // Passwords do not match 
         if (password !== repeatPassword) { 
             throw new ValidationError('passwords', 'Passwords do not match');  
-        }
+        } 
 
-        const user = await User.create({ username, email, imageUrl, description, password }); 
+        // Hashing password 
+        const hashedPassword = await bcrypt.hash(password, PASSWORD.HASH_ROUNDS); 
+
+        const user = await User.create({ username, email, imageUrl, description, password: hashedPassword }); 
 
         // Generating authentication  token
         const token = generateToken(user); 
