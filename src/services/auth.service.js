@@ -1,5 +1,6 @@
 const ValidationError = require('../errors/ValidationError');
 const User = require('../models/User'); 
+const bcrypt = require('bcrypt'); 
 
 module.exports = {
     register: async (registerData) => { 
@@ -22,9 +23,13 @@ module.exports = {
     login: async (loginData) => { 
         const { email, password } = loginData; 
 
+        // Get user by email 
         const user = await getUserByEmail(email); 
+        // If user exists, get saved password and compare with posted password 
+        const passwordMatch = user !== null && await bcrypt.compare(password, user.password); 
 
-        if (user === null || user.password !== password) { 
+        // No user or password does not match 
+        if (user === null || passwordMatch === false) { 
             throw new ValidationError('login', 'Email or password error'); 
         } 
 
