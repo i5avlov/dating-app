@@ -1,7 +1,9 @@
+const { TOKEN } = require('../constants/security.constants');
 const authService = require('../services/auth.service'); 
 const { normalize } = require('../utils/error.utils');
 const loginValidator = require('../validators/login.validator');
-const registerValidator = require('../validators/register.validator');
+const registerValidator = require('../validators/register.validator'); 
+const cookieParser = require('cookie-parser'); 
 
 const authController = require('express').Router(); 
 
@@ -17,13 +19,14 @@ authController
             if (!errors.isEmpty()) { 
                 throw errors; 
             } 
-            await authService.register(registerData); 
+
+            const token = await authService.register(registerData); 
+            res.cookie(TOKEN.AUTH_COOKIE_NAME, token); 
+            res.redirect('/'); 
         } catch (err) { 
             // console.log(err); 
             return res.render('auth/register', { registerData, errors: normalize(err) }); 
-        }
-
-        res.redirect('/'); 
+        } 
         
     }); 
 
@@ -39,12 +42,13 @@ authController
             if (!errors.isEmpty()) { 
                 throw errors; 
             } 
-            await authService.login(loginData); 
+
+            const token = await authService.login(loginData); 
+            res.cookie(TOKEN.AUTH_COOKIE_NAME, token); 
+            res.redirect('/'); 
         } catch (err) { 
             return res.render('auth/login', { loginData, errors: normalize(err) }); 
-        }
-
-        res.redirect('/'); 
+        } 
         
     });
 

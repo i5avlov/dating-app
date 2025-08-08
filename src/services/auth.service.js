@@ -1,6 +1,9 @@
+const { TOKEN } = require('../constants/security.constants'); 
 const ValidationError = require('../errors/ValidationError');
 const User = require('../models/User'); 
 const bcrypt = require('bcrypt'); 
+const jwt = require('jsonwebtoken'); 
+
 
 module.exports = {
     register: async (registerData) => { 
@@ -16,7 +19,12 @@ module.exports = {
             throw new ValidationError('passwords', 'Passwords do not match');  
         }
 
-        return User.create({ username, email, imageUrl, description, password }); 
+        const user = await User.create({ username, email, imageUrl, description, password }); 
+
+        // Generating authentication  token
+        const token = generateToken(user); 
+
+        return token; 
 
     }, 
 
@@ -33,7 +41,10 @@ module.exports = {
             throw new ValidationError('login', 'Email or password error'); 
         } 
 
-        return user; 
+        // Generating authentication token 
+        const token = generateToken(user); 
+
+        return token; 
     }
 } 
 
@@ -44,4 +55,16 @@ async function userExistsByEmail(email) {
 
 function getUserByEmail(email) {
     return User.findOne({ email: email }); 
+} 
+
+function generateToken(user) { 
+    const payload = {
+        id: user._id, 
+        username: user.username, 
+        photoUrl: user.imageUrl 
+    }; 
+
+    const token = jwt.sign(payload, TOKEN.SECRET_KEY); 
+
+    return token; 
 }
