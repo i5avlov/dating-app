@@ -3,6 +3,8 @@ const { Schema, model, Types } = require('mongoose');
 const userSchema = new Schema({
     username: String, 
     email: String, 
+    imageUrl: String, 
+    description: String, 
     password: String, 
     likesUsers: [{
         type: Types.ObjectId, 

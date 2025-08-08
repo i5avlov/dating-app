@@ -8,6 +8,12 @@ const validation = () => {
         validator.body('email') 
             .trim() 
             .isEmail(), 
+        validator.body('imageUrl') 
+            .optional({ values: 'falsy' }) 
+            .trim()
+            .isURL(), 
+        validator.body('description') 
+            .trim(), 
         validator.body('password') 
             .trim() 
             .isLength({ min: 6 }) 

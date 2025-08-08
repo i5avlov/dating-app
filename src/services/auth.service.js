@@ -3,7 +3,7 @@ const User = require('../models/User');
 
 module.exports = {
     register: async (registerData) => { 
-        const { username, email, password, repeatPassword } = registerData; 
+        const { username, email, imageUrl, description, password, repeatPassword } = registerData; 
 
         // User exists 
         if (await userExistsByEmail(email)) { 
@@ -15,7 +15,7 @@ module.exports = {
             throw new ValidationError('passwords', 'Passwords do not match');  
         }
 
-        return User.create({ username, email, password }); 
+        return User.create({ username, email, imageUrl, description, password }); 
 
     }, 
 
