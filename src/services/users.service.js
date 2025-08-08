@@ -22,12 +22,21 @@ module.exports = {
         await user.save(); 
     }, 
 
-    getLikedUsers: async (userId) => { 
-        return await User.findById(userId).select('username likesUsers').populate('likesUsers').lean(); 
+    getById: (userId) => { 
+        return User.findById(userId).populate('likesUsers'); 
     }, 
 
-    // getLikedByUsers: (userId) => { 
-    //     return User.find({ likesUsers:  }); 
-    // } 
+    getLikedUsers: (userId) => { 
+        return User.findById(userId) 
+            .select('likesUsers')
+            .populate('likesUsers')
+            .select('id username email'); 
+    }, 
+
+    getLikedByUsers: (userId) => { 
+        return User.find({ likesUsers: { $all: [ userId ] } })
+            .select('id username email'); 
+
+    }
     
 }; 

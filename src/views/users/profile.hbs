@@ -1,0 +1,16 @@
+<h2>{{userData.username}}</h2> 
+<p>User Profile</p> 
+
+<p style="border-bottom: 1px solid;">Liked</p> 
+
+{{#each likedUsers}} 
+<p><b>{{username}}</b></p> 
+<p>{{email}}</p> 
+{{/each}} 
+
+<p style="border-bottom: 1px solid;">Liked By</p> 
+
+{{#each likedByUsers}} 
+<p><b>{{username}}</b></p> 
+<p>{{email}}</p> 
+{{/each}}
