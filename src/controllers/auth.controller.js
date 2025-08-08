@@ -50,6 +50,12 @@ authController
             return res.render('auth/login', { loginData, errors: normalize(err) }); 
         } 
         
+    }); 
+
+authController
+    .post('/logout', (req, res) => { 
+        res.clearCookie(TOKEN.AUTH_COOKIE_NAME); 
+        res.redirect('/'); 
     });
 
 module.exports = authController; 
