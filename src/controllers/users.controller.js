@@ -1,11 +1,14 @@
+const { PAGINATION } = require('../constants/users.constants');
 const usersService = require('../services/users.service');
 
 const usersController = require('express').Router(); 
 
 usersController 
     .get('/', async (req, res) => { 
-        const usersData = await usersService.getAll().lean(); 
-        res.render('users/index', { usersData }); 
+        let { pageNumber, usersPerPageCount } = req.query; 
+        let paginationData = await usersService.getPaginated(pageNumber, usersPerPageCount); 
+
+        res.render('users/index', { paginationData }); 
     }); 
 
 usersController 

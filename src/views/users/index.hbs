@@ -2,11 +2,12 @@
 
 <div class="members-list"> 
     <div class="row">
-        {{#each usersData}} 
+        {{#each paginationData.onPageUsers}} 
         <div class="col-md-3"> 
-            <div class="member"> 
+            <div class="member border border-success rounded p-3"> 
                 <h4 class="h5">{{username}}</h4> 
                 <p>{{email}}</p> 
+                <p>{{description}}</p> 
 
                 <form action="/users/like" method="POST">
                     <input name="user-id" value="{{_id}}" type="hidden"> 
@@ -17,3 +18,11 @@
         {{/each}}
     </div>
 </div> 
+
+<div class="paging">
+    <ul> 
+        {{#each paginationData.pagesList}}
+        <li><a href="/users?pageNumber={{this}}&usersPerPageCount={{../paginationData.usersPerPageCount}}">{{this}}</a></li> 
+        {{/each}} 
+    </ul> 
+</div>

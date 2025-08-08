@@ -1,8 +1,31 @@
 const User = require('../models/User'); 
+const { PAGINATION } = require('../constants/users.constants'); 
 
 module.exports = { 
     getAll: () => { 
         return User.find({}); 
+    }, 
+
+    getPaginated: async (pageNumberValue, usersPerPageCountValue) => { 
+        const pageNumber = pageNumberValue 
+            ? Number(pageNumberValue) 
+            : PAGINATION.PAGE_NUMBER; 
+        const usersPerPageCount = usersPerPageCountValue 
+            ? Number(usersPerPageCountValue) 
+            : PAGINATION.USERS_PER_PAGE_COUNT; 
+
+        const pagesToSkip = pageNumber - 1; 
+        const pagesCount = await getPagesCount(usersPerPageCount); 
+
+        return { 
+            onPageUsers: await User.find({}) 
+                .skip(pagesToSkip * usersPerPageCount)
+                .limit(usersPerPageCount)
+                .lean(), 
+            pageNumber, 
+            usersPerPageCount, 
+            pagesList: getPagesList(pagesCount) 
+        }; 
     }, 
 
     getUserIdByEmail: async (email) => { 
@@ -40,3 +63,21 @@ module.exports = {
     }
     
 }; 
+
+async function getPagesCount(usersPerPageCount) { 
+    const allUsersCount = await User.find({}).countDocuments(); 
+    const pagesCount = Math.ceil(allUsersCount / usersPerPageCount); 
+
+    return pagesCount; 
+} 
+
+function getPagesList(pagesCount) { 
+    let list = []; 
+
+    for (let i = 0; i < pagesCount; i++) {
+        list.push(i + 1); 
+    } 
+
+    return list; 
+    
+}
