@@ -18,14 +18,13 @@ usersController
     }); 
 
 usersController 
-    .get('/profile', async (req, res) => { 
-        // const userId = req.params.userId; 
-        const userId = req.user.id; 
-        const userData = await usersService.getById(userId).lean(); 
-        const likedUsers = await usersService.getLikedUsers(userId).lean(); 
-        const likedByUsers = await usersService.getLikedByUsers(userId).lean(); 
+    .get('/:userId/profile', async (req, res) => { 
+        const userId = req.params.userId; 
+        // const userId = req.user.id; 
+        const userData = await usersService.getById(userId)
+            .lean();  
 
-        res.render('users/profile', { userData, likedUsers: likedUsers.likesUsers, likedByUsers }); 
+        res.render('users/profile', { userData }); 
     });
 
 usersController
