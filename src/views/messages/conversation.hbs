@@ -1,0 +1,44 @@
+<h2>Send Message</h2> 
+
+<div class="row"> 
+    <div class="col-md-6"> 
+        <div>
+            {{#each messagesData}} 
+            <div class="message">
+                <p class="mb-0">{{content}}</p> 
+                <span>{{sender.username}}</span> 
+            </div> 
+            {{/each}}
+        </div>
+    </div> 
+
+    <div class="col-md-6"> 
+        <div class="d-flex align-items-center">
+            <div class="image-holder image-holder-user-send-message"> 
+                <img src="{{userData.imageUrl}}" alt="">
+            </div> 
+
+            <div class="ms-2"> 
+                <p class="mb-0">{{userData.username}}</p> 
+                <dl class="profile-info d-flex"> 
+                    <div class="d-flex">
+                        <dt class="">City</dt><dd class="ms-1">Sofia</dd>
+                    </div> 
+                    <div class="d-flex ms-2">
+                        <dt class="">Age</dt><dd class="ms-1">38</dd>
+                    </div> 
+                </dl> 
+            </div> 
+        </div> 
+        
+        <form method="POST">
+            <div class="form-group">
+                <label for="" class="form-label">Message</label> 
+                <textarea name="message" id="" class="form-control" rows="3"></textarea>
+            </div> 
+
+            <button type="submit" class="btn btn-success mt-2">Send</button> 
+        </form> 
+    </div>
+</div> 
+
