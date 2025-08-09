@@ -1,1 +1,15 @@
+html {
+    height: 100%; 
+} 
 
+body {
+    min-height: 100%; 
+}
+
+body {
+    display: flex; flex-direction: column; 
+} 
+
+footer {
+    margin-top: auto; 
+}
