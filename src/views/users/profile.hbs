@@ -1,16 +1,22 @@
-<h2>{{userData.username}}</h2> 
-<p>User Profile</p> 
 
-<p style="border-bottom: 1px solid;">Liked</p> 
 
-{{#each likedUsers}} 
-<p><b>{{username}}</b></p> 
-<p>{{email}}</p> 
-{{/each}} 
+<div class="row"> 
+    <div class="col-md-3">
+        <div class="image-holder image-holder-profile"> 
+            <img src="{{userData.imageUrl}}" alt="">
+        </div> 
+    </div>
 
-<p style="border-bottom: 1px solid;">Liked By</p> 
-
-{{#each likedByUsers}} 
-<p><b>{{username}}</b></p> 
-<p>{{email}}</p> 
-{{/each}}
+    <div class="col-md-7"> 
+        <h2 class="h4">{{userData.username}}</h2> 
+        <p>User Profile</p>  
+        <dl class="profile-info"> 
+            <div class="d-flex">
+                <dt>Email</dt><dd class="ms-2">{{userData.email}}</dd>
+            </div> 
+            <div class="d-flex">
+                <dt>Description</dt><dd class="ms-2">{{userData.description}}</dd> 
+            </div>
+        </dl> 
+    </div> 
+</div>
