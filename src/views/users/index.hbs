@@ -20,9 +20,11 @@
 </div> 
 
 <div class="paging">
-    <ul> 
+    <ul class="pagination mt-4"> 
         {{#each paginationData.pagesList}}
-        <li><a href="/users?pageNumber={{this}}&usersPerPageCount={{../paginationData.usersPerPageCount}}">{{this}}</a></li> 
+        <li class="page-item {{markOnEqual this ../paginationData.pageNumber 'active'}}"> 
+            <a class="page-link" href="/users?pageNumber={{this}}&usersPerPageCount={{../paginationData.usersPerPageCount}}">{{this}}</a>
+        </li> 
         {{/each}} 
     </ul> 
 
