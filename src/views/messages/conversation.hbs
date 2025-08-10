@@ -4,22 +4,31 @@
     <div class="col-md-6"> 
         <div>
             {{#each messagesData}} 
-            <div class="message">
-                <p class="mb-0">{{content}}</p> 
-                <span>{{sender.username}}</span> 
+            <div class="message mt-4"> 
+                <p class="mb-1">{{content}}</p> 
+
+                <div class="user d-flex align-items-center">
+                    <div class="image-holder image-holder-user-conversation"> 
+                        <img src="{{sender.imageUrl}}" alt="">
+                    </div> 
+
+                    <div class="ms-2"> 
+                        <p class="mb-0">{{sender.username}}</p> 
+                    </div> 
+                </div> 
             </div> 
             {{/each}}
         </div>
     </div> 
 
     <div class="col-md-6"> 
-        <div class="d-flex align-items-center">
-            <div class="image-holder image-holder-user-send-message"> 
-                <img src="{{userData.imageUrl}}" alt="">
+        <div class="user d-flex align-items-center">
+            <div class="image-holder image-holder-user-conversation"> 
+                <img src="{{currentUserData.imageUrl}}" alt="">
             </div> 
 
             <div class="ms-2"> 
-                <p class="mb-0">{{userData.username}}</p> 
+                <p class="mb-0">{{currentUserData.username}}</p> 
                 <dl class="profile-info d-flex"> 
                     <div class="d-flex">
                         <dt class="">City</dt><dd class="ms-1">Sofia</dd>
