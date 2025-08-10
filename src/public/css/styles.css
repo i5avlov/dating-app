@@ -16,11 +16,19 @@ footer {
 
 .image-holder-profile { 
     width: 100%; height: auto; 
+} 
 
-}
+.image-holder-user-conversation {
+    width: 2rem; height: 2rem; 
+} 
 
 .image-holder img { 
     display: inline-block; 
     object-fit: contain; 
     width: 100%; height: 100%; 
+} 
+
+.image-holder-user-conversation  img { 
+    object-fit: cover; 
+    border-radius: 100px; 
 }
