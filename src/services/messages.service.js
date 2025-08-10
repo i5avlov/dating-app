@@ -39,9 +39,24 @@ module.exports = {
     }, 
 
     getConversation: (currentUserId, otherUserId) => { 
-        return Message.find({})
-            .where({ 'sender': currentUserId }).and([{ 'receiver': otherUserId }]) 
-            .or([{ 'sender': otherUserId }]).and([{ 'receiver': currentUserId }]); 
+        const messages = Message.find({
+            $or: [ 
+                { 
+                    $and: [ 
+                        { sender: currentUserId }, 
+                        { receiver: otherUserId } 
+                    ] 
+                }, 
+                {
+                    $and: [ 
+                        { sender: otherUserId }, 
+                        { receiver: currentUserId } 
+                    ] 
+                }
+            ]
+        }); 
+
+        return messages.sort({ sendDate: -1 });  
     }
     
 } 
