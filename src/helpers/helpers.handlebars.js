@@ -3,6 +3,10 @@ module.exports = {
         return currentOption === targetOption ? mark : ''; 
     },  
 
+    slice: (text = '', charCount = 0) => { 
+        return text.slice(0, charCount) + '...'; 
+    }, 
+
     getOtherUserId: (messagesToGet, senderId, receiverId) => { 
         if (messagesToGet === 'sent') { 
             return receiverId; 
