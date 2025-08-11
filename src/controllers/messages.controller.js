@@ -26,4 +26,17 @@ messagesController
         
     }); 
 
+messagesController
+    .get('/', async (req, res) => { 
+        const messagesToGet = req.query.messagesToGet.toLowerCase(); 
+        const currentUserId = req.user.id; 
+
+        const currentUserData = await usersService.getById(currentUserId).lean(); 
+        const messagesData = await messagesService.getMessages(messagesToGet, currentUserId)
+            .populate('sender receiver')
+            .lean(); 
+
+        res.render('messages/index', { currentUserData, messagesData, messagesToGet }); 
+    }); 
+
 module.exports = messagesController; 

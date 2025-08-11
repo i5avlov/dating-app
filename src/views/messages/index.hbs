@@ -1,0 +1,31 @@
+{{#if (areMessagesSent messagesToGet)}}
+<h2>Messages Sent</h2> 
+{{/if}} 
+
+{{#if (areMessagesReceived messagesToGet)}} 
+<h2>Messages Received</h2> 
+{{/if}} 
+
+<table class="table table-striped"> 
+    <thead>
+        <tr>
+            <th>Content</th><th>From/To</th><th>Read</th> 
+        </tr> 
+    </thead> 
+    <tbody>
+        {{#each messagesData}}
+        <tr> 
+            <td><a href="/messages/users/{{getOtherUserId ../messagesToGet sender._id receiver._id}}/conversation">{{slice content 10}}</a></td> 
+            {{#if (areMessagesSent ../messagesToGet)}}
+            <td>{{> user user=receiver}}</td> 
+            {{/if}}
+            
+            {{#if (areMessagesReceived ../messagesToGet)}}
+            <td>{{> user user=sender}}</td>
+            {{/if}}
+
+            <td>{{#if readDate}}x{{/if}}</td> 
+        </tr> 
+        {{/each}}
+    </tbody>
+</table>

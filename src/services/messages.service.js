@@ -26,7 +26,16 @@ module.exports = {
 
     }, 
 
-    getSent: (userId) => {
+    getMessages: (messagesToGet, userId) => { 
+        const messages = Message.find({}); 
+
+        if (messagesToGet === 'sent') { 
+            return messages.where({ sender: userId }); 
+        } 
+
+        if (messagesToGet === 'received') { 
+            return messages.where({ receiver: userId }); 
+        } 
 
     }, 
 
