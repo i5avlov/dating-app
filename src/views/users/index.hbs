@@ -2,7 +2,7 @@
 
 <div class="members-list"> 
     <div class="row gy-3">
-        {{#each paginationData.onPageUsers}} 
+        {{#each paginationData.onPageElements}} 
         <div class="col-md-3 gx-3"> 
             <div class="member border border-success rounded p-3"> 
                 <h4 class="h5">{{username}}</h4> 
@@ -24,9 +24,9 @@
 
 <div class="paging"> 
     <ul class="pagination mt-4"> 
-        {{#each paginationData.pagesList}}
+        {{#each (getPagesList ../paginationData.pagesList)}} 
         <li class="page-item {{markOnEqual this ../paginationData.pageNumber 'active'}}"> 
-            <a class="page-link" href="/users?pageNumber={{this}}&usersPerPageCount={{../paginationData.usersPerPageCount}}">{{this}}</a>
+            <a class="page-link" href="/users?pageNumber={{this}}&usersPerPageCount={{../paginationData.perPageCount}}">{{this}}</a>
         </li> 
         {{/each}} 
     </ul> 
@@ -34,8 +34,8 @@
     <form id="usersPerPageChange" action="/users" method="POST" onchange="this.submit();"> 
         <label class="form-label" for="">Users per page</label>
         <select name="usersPerPageCount" class="form-control" id=""> 
-            {{#each paginationData.usersPerPageOptions}}
-            <option value="{{this}}" {{markOnEqual this ../paginationData.usersPerPageCount 'selected'}}>{{this}}</option> 
+            {{#each paginationData.perPageOptions}}
+            <option value="{{this}}" {{markOnEqual this ../paginationData.perPageCount 'selected'}}>{{this}}</option> 
             {{/each}} 
         </select>
     </form>

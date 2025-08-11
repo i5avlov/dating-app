@@ -1,4 +1,5 @@
 const User = require('../models/User'); 
+const pagination = require('../utils/pagination.utils'); 
 const { PAGINATION } = require('../constants/users.constants'); 
 
 module.exports = { 
@@ -7,6 +8,8 @@ module.exports = {
     }, 
 
     getPaginated: async (pageNumberValue, usersPerPageCountValue) => { 
+        // Values are parsed when not undefined 
+        // and set to default when undefined 
         const pageNumber = pageNumberValue 
             ? Number(pageNumberValue) 
             : PAGINATION.PAGE_NUMBER; 
@@ -14,19 +17,15 @@ module.exports = {
             ? Number(usersPerPageCountValue) 
             : PAGINATION.USERS_PER_PAGE_COUNT; 
 
-        const pagesToSkip = pageNumber - 1; 
-        const pagesCount = await getPagesCount(usersPerPageCount); 
+        // Query of all users
+        const usersQuery = User.find({}); 
+        // Get all users count 
+        const usersCount = await User.find({}).countDocuments(); 
 
-        return { 
-            onPageUsers: await User.find({}) 
-                .skip(pagesToSkip * usersPerPageCount)
-                .limit(usersPerPageCount)
-                .lean(), 
-            pageNumber, 
-            usersPerPageCount, 
-            pagesList: getPagesList(pagesCount), 
-            usersPerPageOptions: PAGINATION.USERS_PER_PAGE_OPTIONS 
-        }; 
+        const paginatedUsers = await pagination.getPaginated(usersQuery, usersCount, pageNumber, usersPerPageCount); 
+
+        return paginatedUsers; 
+        
     }, 
 
     getUserIdByEmail: async (email) => { 
