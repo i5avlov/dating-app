@@ -12,9 +12,9 @@ usersController
     }) 
     .post('/', async (req, res) => { 
         let { usersPerPageCount } = req.body; 
-        let paginationData = await usersService.getPaginated(1, usersPerPageCount); 
+        // let paginationData = await usersService.getPaginated(1, usersPerPageCount); 
 
-        res.render('users/index', { paginationData }); 
+        res.redirect(`/users?pageNumber=1&usersPerPageCount=${usersPerPageCount}`); 
     }); 
 
 usersController 
