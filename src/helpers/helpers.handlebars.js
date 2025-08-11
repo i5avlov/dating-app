@@ -7,6 +7,17 @@ module.exports = {
         return text.slice(0, charCount) + '...'; 
     }, 
 
+    getPagesList: (pagesCount) => { 
+        let list = []; 
+
+        for (let i = 0; i < pagesCount; i++) {
+            list.push(i + 1); 
+        } 
+
+        return list; 
+    
+    }, 
+
     getOtherUserId: (messagesToGet, senderId, receiverId) => { 
         if (messagesToGet === 'sent') { 
             return receiverId; 
