@@ -27,15 +27,17 @@ module.exports = {
     }, 
 
     getMessages: (messagesToGet, userId) => { 
-        const messages = Message.find({}); 
+        let messages = Message.find({}); 
 
         if (messagesToGet === 'sent') { 
-            return messages.where({ sender: userId }); 
+            messages = messages.where({ sender: userId }); 
         } 
 
         if (messagesToGet === 'received') { 
-            return messages.where({ receiver: userId }); 
+            messages = messages.where({ receiver: userId }); 
         } 
+
+        return messages.sort({ sendDate: -1 }); 
 
     }, 
 
