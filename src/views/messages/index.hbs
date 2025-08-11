@@ -13,7 +13,7 @@
         </tr> 
     </thead> 
     <tbody>
-        {{#each messagesData}}
+        {{#each messagesData.onPageElements}} 
         <tr> 
             <td><a href="/messages/users/{{getOtherUserId ../messagesToGet sender._id receiver._id}}/conversation">{{slice content 10}}</a></td> 
             {{#if (areMessagesSent ../messagesToGet)}}
@@ -28,4 +28,26 @@
         </tr> 
         {{/each}}
     </tbody>
-</table>
+</table> 
+
+<div class="paging"> 
+    <ul class="pagination mt-4"> 
+        {{#each (getPagesList messagesData.pagesCount)}} 
+        <li class="page-item {{markOnEqual this ../messagesData.pageNumber 'active'}}"> 
+            <a class="page-link" href="/messages?messagesToGet={{../messagesToGet}}&pageNumber={{this}}&messagesPerPageCount={{../messagesData.perPageCount}}">{{this}}</a>
+        </li> 
+        {{/each}} 
+    </ul> 
+
+    <form action="/messages?{{messagesToGet}}" method="POST" onchange="this.submit();"> 
+        <div class="form-group">
+            <label class="form-label" for="">Messages per page</label>
+            <select name="messagesPerPageCount" class="form-control" id=""> 
+                {{#each messagesData.perPageOptions}}
+                <option value="{{this}}" {{markOnEqual this ../messagesData.perPageCount 'selected'}}>{{this}}</option> 
+                {{/each}} 
+            </select> 
+        </div> 
+        <input type="hidden" name="messagesToGet" value="{{messagesToGet}}">
+    </form> 
+</div>

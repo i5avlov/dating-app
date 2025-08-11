@@ -28,15 +28,22 @@ messagesController
 
 messagesController
     .get('/', async (req, res) => { 
-        const messagesToGet = req.query.messagesToGet.toLowerCase(); 
+        const { messagesToGet, pageNumber, messagesPerPageCount } = req.query; 
         const currentUserId = req.user.id; 
 
         const currentUserData = await usersService.getById(currentUserId).lean(); 
-        const messagesData = await messagesService.getMessages(messagesToGet, currentUserId)
+        const messagesData = await messagesService.getMessages(messagesToGet, currentUserId, pageNumber, messagesPerPageCount); 
+        messagesData.onPageElements = await messagesData.onPageElements
             .populate('sender receiver')
             .lean(); 
 
         res.render('messages/index', { currentUserData, messagesData, messagesToGet }); 
+    }) 
+    .post('/', async (req, res) => { 
+        let { messagesToGet, messagesPerPageCount } = req.body; 
+        // let messagesData = await messagesService.getPaginated(1, messagesPerPageCount); 
+
+        res.redirect(`/messages?messagesToGet=${messagesToGet}&pageNumber=1&messagesPerPageCount=${messagesPerPageCount}`); 
     }); 
 
 module.exports = messagesController; 

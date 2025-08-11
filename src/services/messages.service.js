@@ -1,5 +1,7 @@
+const { PAGINATION } = require('../constants/messages.constants');
 const messagesController = require('../controllers/messages.controller');
 const Message = require('../models/Message'); 
+const paginationUtils = require('../utils/pagination.utils');
 
 module.exports = { 
     add: (messageData, sourceUserId, targetUserId) => { 
@@ -26,18 +28,24 @@ module.exports = {
 
     }, 
 
-    getMessages: (messagesToGet, userId) => { 
-        let messages = Message.find({}); 
+    getMessages: async (messagesToGet, userId, pageNumberValue, messagesPerPageCountValue) => { 
+        // Values are parsed when not undefined 
+        // and set to default when undefined 
+        const pageNumber = pageNumberValue 
+            ? Number(pageNumberValue) 
+            : PAGINATION.PAGE_NUMBER; 
+        const messagesPerPageCount = messagesPerPageCountValue 
+            ? Number(messagesPerPageCountValue) 
+            : PAGINATION.MESSAGES_PER_PAGE_COUNT; 
 
-        if (messagesToGet === 'sent') { 
-            messages = messages.where({ sender: userId }); 
-        } 
+        let messages = queryMessagesToGet(messagesToGet, userId)
+            .sort({ sendDate: -1 }); 
 
-        if (messagesToGet === 'received') { 
-            messages = messages.where({ receiver: userId }); 
-        } 
+        const messagesCount = await queryMessagesToGet(messagesToGet, userId)
+            .countDocuments(); 
+        const paginatedMessages = paginationUtils.getPaginated(messages, messagesCount, pageNumber, messagesPerPageCount); 
 
-        return messages.sort({ sendDate: -1 }); 
+        return paginatedMessages; 
 
     }, 
 
@@ -71,3 +79,17 @@ module.exports = {
     }
     
 } 
+
+function queryMessagesToGet(messagesToGet, userId) {
+    let messages = Message.find({}); 
+
+    if (messagesToGet === 'sent') { 
+        messages = messages.where({ sender: userId }); 
+    } 
+
+    if (messagesToGet === 'received') { 
+        messages = messages.where({ receiver: userId }); 
+    } 
+
+    return messages; 
+}
