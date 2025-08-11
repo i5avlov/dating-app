@@ -24,6 +24,11 @@ module.exports = {
 
     areMessagesReceived: (messagesToGet) => { 
         return messagesToGet === 'received'; 
+    }, 
+
+    sentByCurrentUser: (currentUserId, senderId) => { 
+        return senderId.equals(currentUserId); 
+
     }
 
 }; 

@@ -31,4 +31,27 @@ footer {
 .image-holder-user-conversation  img { 
     object-fit: cover; 
     border-radius: 100px; 
+} 
+
+.message {
+    --message-border: 1px solid rgba(0, 0, 0, 0.4); 
+} 
+
+.message { 
+    padding-block: 1em; 
+
+} 
+
+.message + .message {
+    margin-top: 1em; 
+}
+
+.sent-user-current {
+    margin-left: auto; 
+    padding-left: 1em; border-left: var(--message-border);  
+} 
+
+.sent-user-other {
+    align-items: end; 
+    padding-right: 1em; border-right: var(--message-border); 
 }

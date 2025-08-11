@@ -2,9 +2,12 @@
 
 <div class="row"> 
     <div class="col-md-6"> 
-        <div>
+        <div class="d-flex flex-column">
             {{#each messagesData}} 
-            <div class="message mt-4"> 
+            <div 
+                style="width: 50%;" 
+                class="message d-flex flex-column {{#if (sentByCurrentUser ../user.id sender._id)}}sent-user-current{{else}}sent-user-other{{/if}}"
+            > 
                 <p class="mb-1">{{content}}</p> 
 
                 {{> user user=sender}} 
@@ -16,11 +19,11 @@
     <div class="col-md-6"> 
         <div class="user d-flex align-items-center">
             <div class="image-holder image-holder-user-conversation"> 
-                <img src="{{currentUserData.imageUrl}}" alt="">
+                <img src="{{otherUserData.imageUrl}}" alt="">
             </div> 
 
             <div class="ms-2"> 
-                <p class="mb-0">{{currentUserData.username}}</p> 
+                <p class="mb-0">{{otherUserData.username}}</p> 
                 <dl class="profile-info d-flex"> 
                     <div class="d-flex">
                         <dt class="">City</dt><dd class="ms-1">Sofia</dd>
