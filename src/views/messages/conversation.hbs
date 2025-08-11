@@ -7,15 +7,7 @@
             <div class="message mt-4"> 
                 <p class="mb-1">{{content}}</p> 
 
-                <div class="user d-flex align-items-center">
-                    <div class="image-holder image-holder-user-conversation"> 
-                        <img src="{{sender.imageUrl}}" alt="">
-                    </div> 
-
-                    <div class="ms-2"> 
-                        <p class="mb-0">{{sender.username}}</p> 
-                    </div> 
-                </div> 
+                {{> user user=sender}} 
             </div> 
             {{/each}}
         </div>
