@@ -23,6 +23,8 @@ module.exports = {
         const usersCount = await User.find({}).countDocuments(); 
 
         const paginatedUsers = await pagination.getPaginated(usersQuery, usersCount, pageNumber, usersPerPageCount); 
+        paginatedUsers.onPageElements = await paginatedUsers.onPageElements
+            .lean(); 
 
         return paginatedUsers; 
         
