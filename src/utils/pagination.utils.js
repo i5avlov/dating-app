@@ -8,16 +8,22 @@ module.exports = {
         const pagesCount = Math.ceil(elementsCount / perPageCount); 
 
         // <Number of elements to skip> = <Pages before> * <Number of elements on page> 
-        const onPageElements = await elementsQuery 
+        let onPageElements = elementsQuery 
             .skip(pagesToSkip * perPageCount)
-            .limit(perPageCount)
-            .lean(); 
+            .limit(perPageCount); 
+
+        // if (populatePaths) { 
+        //     onPageElements = onPageElements.populate(populatePaths); 
+        // } 
+
+        // onPageElements = onPageElements.lean(); 
 
         // Returns an object with pagination data 
         return { 
             onPageElements, 
             pageNumber, 
             perPageCount, 
+            pagesCount, 
             perPageOptions: PAGINATION.USERS_PER_PAGE_OPTIONS 
         }; 
     }, 
