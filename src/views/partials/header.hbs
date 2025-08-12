@@ -10,8 +10,12 @@
             </ul> 
 
             <ul class="navbar-nav"> 
-                {{#if user}}
+                {{#if user}} 
                 <li class="nav-item">
+                    <span></span> 
+                </li> 
+                <li class="nav-item d-flex align-items-center">  
+                    <span class="image-holder image-holder-user"><img src="{{user.photoUrl}}" alt=""></span> 
                     <a href="/users/{{user.id}}/profile" class="nav-link">Hello, {{user.username}}</a> 
                 </li> 
 

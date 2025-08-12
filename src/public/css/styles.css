@@ -14,11 +14,20 @@ footer {
     margin-top: auto; 
 } 
 
+.image-holder { 
+    display: block; 
+    overflow: hidden; 
+}
+
+.image-holder-header {
+    width: 2rem; height: 2rem; 
+}
+
 .image-holder-profile { 
     width: 100%; height: auto; 
 } 
 
-.image-holder-user-conversation {
+.image-holder-user {
     width: 2rem; height: 2rem; 
 } 
 
@@ -28,7 +37,7 @@ footer {
     width: 100%; height: 100%; 
 } 
 
-.image-holder-user-conversation  img { 
+.image-holder-user  img { 
     object-fit: cover; 
     border-radius: 100px; 
 } 
@@ -54,4 +63,5 @@ footer {
 .sent-user-other {
     align-items: end; 
     padding-right: 1em; border-right: var(--message-border); 
-}
+} 
+
