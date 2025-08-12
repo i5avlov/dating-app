@@ -7,13 +7,18 @@
                 <li class="nav-item">
                     <a href="/" class="nav-link">Home</a>
                 </li> 
+
+                <li class="nav-item">
+                    <a href="/users" class="nav-link">Users</a>
+                </li> 
+
+                <li class="nav-item">
+                    <a href="/messages?messagesToGet=received" class="nav-link">Messages</a>
+                </li> 
             </ul> 
 
             <ul class="navbar-nav"> 
                 {{#if user}} 
-                <li class="nav-item">
-                    <span></span> 
-                </li> 
                 <li class="nav-item d-flex align-items-center">  
                     <span class="image-holder image-holder-user"><img src="{{user.photoUrl}}" alt=""></span> 
                     <a href="/users/{{user.id}}/profile" class="nav-link">Hello, {{user.username}}</a> 
