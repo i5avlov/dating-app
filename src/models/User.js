@@ -6,6 +6,10 @@ const userSchema = new Schema({
     email: String, 
     imageUrl: String, 
     description: String, 
+    gender: String, 
+    dateOfBirth: Date, 
+    city: String, 
+    dateOfJoin: Date, 
     password: String, 
     likesUsers: [{
         type: Types.ObjectId, 

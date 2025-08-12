@@ -7,7 +7,9 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
     register: async (registerData) => { 
-        const { username, email, imageUrl, description, password, repeatPassword } = registerData; 
+        const { 
+            username, email, imageUrl, description, dateOfBirth, gender, city, password, repeatPassword 
+        } = registerData; 
 
         // User exists 
         if (await userExistsByEmail(email)) { 
@@ -22,7 +24,9 @@ module.exports = {
         // Hashing password 
         const hashedPassword = await bcrypt.hash(password, PASSWORD.HASH_ROUNDS); 
 
-        const user = await User.create({ username, email, imageUrl, description, password: hashedPassword }); 
+        const user = await User.create({ 
+            username, email, imageUrl, description, dateOfBirth, gender, city, password: hashedPassword 
+        }); 
 
         // Generating authentication  token
         const token = generateToken(user); 
