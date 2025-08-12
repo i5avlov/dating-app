@@ -7,7 +7,7 @@ module.exports = {
         return User.find({}); 
     }, 
 
-    getPaginated: async (pageNumberValue, usersPerPageCountValue) => { 
+    getPaginated: async (userId, pageNumberValue, usersPerPageCountValue) => { 
         // Values are parsed when not undefined 
         // and set to default when undefined 
         const pageNumber = pageNumberValue 
@@ -17,12 +17,13 @@ module.exports = {
             ? Number(usersPerPageCountValue) 
             : PAGINATION.USERS_PER_PAGE_COUNT; 
 
-        // Query of all users
-        const usersQuery = User.find({}); 
-        // Get all users count 
-        const usersCount = await User.find({}).countDocuments(); 
+        // Query of all users except current user 
+        const usersQuery = getAllUsersExceptOne(userId); 
+        // Get all users count except current user 
+        const usersCount = await getAllUsersExceptOne(userId).countDocuments(); 
 
         const paginatedUsers = await pagination.getPaginated(usersQuery, usersCount, pageNumber, usersPerPageCount); 
+        // Awaits paginated users query 
         paginatedUsers.onPageElements = await paginatedUsers.onPageElements
             .lean(); 
 
@@ -65,6 +66,12 @@ module.exports = {
     }
     
 }; 
+
+function getAllUsersExceptOne(userId) {
+    return User.find({})
+        .where('_id')
+        .ne(userId); 
+}
 
 async function getPagesCount(usersPerPageCount) { 
     const allUsersCount = await User.find({}).countDocuments(); 
