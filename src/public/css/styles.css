@@ -21,6 +21,10 @@ footer {
 
 .image-holder-header {
     width: 2rem; height: 2rem; 
+} 
+
+.image-holder-user-index {
+    width: 100%; height: 10rem; 
 }
 
 .image-holder-profile { 
@@ -37,8 +41,12 @@ footer {
     width: 100%; height: 100%; 
 } 
 
-.image-holder-user  img { 
+.image-holder-user-index img, 
+.image-holder-user img { 
     object-fit: cover; 
+} 
+
+.image-holder-user img { 
     border-radius: 100px; 
 } 
 
@@ -64,4 +72,8 @@ footer {
     align-items: end; 
     padding-right: 1em; border-right: var(--message-border); 
 } 
+
+.member-heading {
+    font-size: 1rem; 
+}
 
