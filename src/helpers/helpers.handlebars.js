@@ -19,6 +19,9 @@ module.exports = {
     }, 
 
     isNotCurrentUser: (currentUserId, otherUserId) => { 
+        if (!currentUserId) { 
+            return false; 
+        }
         return otherUserId.equals(currentUserId) === false; 
     }, 
 
