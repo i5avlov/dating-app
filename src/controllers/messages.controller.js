@@ -7,6 +7,12 @@ messagesController
         const currentUserId = req.user.id; 
         const otherUserId = req.params.userId; 
 
+        if (currentUserId === otherUserId) { 
+            return res
+                .status(401)
+                .send('You are trying to send message to yourself'); 
+        }
+
         const currentUserData = await usersService.getById(currentUserId).lean();
         const otherUserData = await usersService.getById(otherUserId).lean(); 
         const messagesData = await messagesService.getConversation(currentUserId, otherUserId)
