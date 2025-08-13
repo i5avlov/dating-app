@@ -4,7 +4,7 @@ const validation = () => {
     return [
         validator.body('username') 
             .trim() 
-            .isLength({ min: 6 }), 
+            .isLength({ min: 5 }), 
         validator.body('email') 
             .trim() 
             .isEmail(), 
