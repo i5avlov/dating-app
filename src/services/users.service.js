@@ -17,10 +17,17 @@ module.exports = {
             ? Number(usersPerPageCountValue) 
             : PAGINATION.USERS_PER_PAGE_COUNT; 
 
-        // Query of all users except current user 
-        const usersQuery = getAllUsersExceptOne(userId); 
-        // Get all users count except current user 
-        const usersCount = await getAllUsersExceptOne(userId).countDocuments(); 
+        let usersQuery = User.find({}); 
+        let usersCount = await User.find({}).countDocuments(); 
+
+        if (userId) {
+            // Query of all users except current user 
+            usersQuery = usersQuery 
+                .where('_id')
+                .ne(userId); 
+            // Get all users count except current user 
+            usersCount = usersCount - 1; 
+        }
 
         const paginatedUsers = await pagination.getPaginated(usersQuery, usersCount, pageNumber, usersPerPageCount); 
         // Awaits paginated users query 

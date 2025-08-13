@@ -6,7 +6,7 @@ const usersController = require('express').Router();
 usersController 
     .get('/', async (req, res) => { 
         let { pageNumber, usersPerPageCount } = req.query; 
-        const userId = req.user.id; 
+        const userId = req.user?.id; 
         let paginationData = await usersService.getPaginated(userId, pageNumber, usersPerPageCount); 
 
         res.render('users/index', { paginationData }); 
