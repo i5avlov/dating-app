@@ -19,8 +19,10 @@
             </div>
         </dl> 
 
+        {{#if (isNotCurrentUser user.id userData._id)}}
         <div class="button-group">
             <a href="/messages/users/{{userData._id}}/conversation" class="btn btn-outline-success">Send Message</a> 
         </div>
+        {{/if}} 
     </div> 
 </div>

@@ -18,6 +18,10 @@ module.exports = {
     
     }, 
 
+    isNotCurrentUser: (currentUserId, otherUserId) => { 
+        return otherUserId.equals(currentUserId) === false; 
+    }, 
+
     getOtherUserId: (messagesToGet, senderId, receiverId) => { 
         if (messagesToGet === 'sent') { 
             return receiverId; 
