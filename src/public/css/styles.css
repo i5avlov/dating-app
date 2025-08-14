@@ -81,5 +81,12 @@ footer {
 .dropdown-toggle:first-child:active { 
     border-color: transparent; 
 
+} 
+
+.message-unread td { 
+    font-weight: bold; 
+    /* background-color: green; 
+    color: #EEE;  */ 
+
 }
 

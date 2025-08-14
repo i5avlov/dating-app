@@ -14,7 +14,7 @@
     </thead> 
     <tbody>
         {{#each messagesData.onPageElements}} 
-        <tr> 
+        <tr class={{#if readDate}}"message-read"{{else}}"message-unread"{{/if}}> 
             <td><a href="/messages/users/{{getOtherUserId ../messagesToGet sender._id receiver._id}}/conversation">{{slice content 10}}</a></td> 
             {{#if (areMessagesSent ../messagesToGet)}}
             <td>{{> user user=receiver}}</td> 
@@ -24,7 +24,7 @@
             <td>{{> user user=sender}}</td>
             {{/if}}
 
-            <td>{{#if (isEqual readDate undefined)}}New{{/if}}</td> 
+            <td>{{#if readDate}}{{getDate readDate}}{{else}}New{{/if}}</td> 
         </tr> 
         {{/each}}
     </tbody>
