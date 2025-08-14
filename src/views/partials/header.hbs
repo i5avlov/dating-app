@@ -13,9 +13,17 @@
                 </li> 
 
                 {{#if user}} 
-                <li class="nav-item">
-                    <a href="/messages?messagesToGet=received" class="nav-link">Messages</a>
-                </li> 
+                <li class="nav-item"> 
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false"> 
+                            Messages
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/messages?messagesToGet=received">Received</a></li> 
+                            <li><a class="dropdown-item" href="/messages?messagesToGet=sent">Sent</a></li> 
+                        </ul>
+                    </div>
+                </li>
                 {{/if}} 
             </ul> 
 
