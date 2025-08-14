@@ -9,6 +9,7 @@
                 class="message d-flex flex-column {{#if (sentByCurrentUser ../user.id sender._id)}}sent-user-current{{else}}sent-user-other{{/if}}"
             > 
                 <p class="mb-1">{{content}}</p> 
+                <span>{{getDate sendDate}}</span> 
 
                 {{> user user=sender}} 
             </div> 

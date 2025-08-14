@@ -36,6 +36,14 @@ module.exports = {
 
     }, 
 
+    getDate: (dateValue) => { 
+        const date = new Date(dateValue); 
+        const hours = date.getHours(); 
+        const minutes = date.getMinutes(); 
+
+        return date.toDateString() + ' ' + hours + ':' + minutes; 
+    }, 
+
     areMessagesSent: (messagesToGet) => { 
         return messagesToGet === 'sent'; 
     },  
