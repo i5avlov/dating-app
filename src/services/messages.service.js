@@ -64,7 +64,7 @@ module.exports = {
 
     updateReadDate: (currentUserId, otherUserId) => { 
         let messages = queryConversation(currentUserId, otherUserId); 
-        return messages.updateMany({ readDate: undefined }, { readDate: new Date(Date.now()) }); 
+        return messages.updateMany({ receiver: currentUserId, readDate: undefined }, { readDate: new Date(Date.now()) }); 
     }
     
 } 
