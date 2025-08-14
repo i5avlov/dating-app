@@ -12,9 +12,11 @@
                     <a href="/users" class="nav-link">Users</a>
                 </li> 
 
+                {{#if user}} 
                 <li class="nav-item">
                     <a href="/messages?messagesToGet=received" class="nav-link">Messages</a>
                 </li> 
+                {{/if}} 
             </ul> 
 
             <ul class="navbar-nav"> 
