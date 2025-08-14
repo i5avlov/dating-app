@@ -25,6 +25,11 @@ module.exports = {
         return otherUserId.equals(currentUserId) === false; 
     }, 
 
+    isEqual: (prop, value) => { 
+        return prop === value; 
+
+    }, 
+
     getOtherUserId: (messagesToGet, senderId, receiverId) => { 
         if (messagesToGet === 'sent') { 
             return receiverId; 

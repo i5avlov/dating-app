@@ -24,7 +24,7 @@
             <td>{{> user user=sender}}</td>
             {{/if}}
 
-            <td>{{#if readDate}}x{{/if}}</td> 
+            <td>{{#if (isEqual readDate undefined)}}New{{/if}}</td> 
         </tr> 
         {{/each}}
     </tbody>

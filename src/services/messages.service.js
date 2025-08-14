@@ -38,7 +38,7 @@ module.exports = {
             ? Number(messagesPerPageCountValue) 
             : PAGINATION.MESSAGES_PER_PAGE_COUNT; 
 
-        let messages = queryMessagesToGet(messagesToGet, userId)
+        let messages = queryMessagesToGet(messagesToGet, userId) 
             .sort({ sendDate: -1 }); 
 
         const messagesCount = await queryMessagesToGet(messagesToGet, userId)
@@ -58,27 +58,36 @@ module.exports = {
     }, 
 
     getConversation: (currentUserId, otherUserId) => { 
-        const messages = Message.find({
-            $or: [ 
-                { 
-                    $and: [ 
-                        { sender: currentUserId }, 
-                        { receiver: otherUserId } 
-                    ] 
-                }, 
-                {
-                    $and: [ 
-                        { sender: otherUserId }, 
-                        { receiver: currentUserId } 
-                    ] 
-                }
-            ]
-        }); 
-
+        const messages = queryConversation(currentUserId, otherUserId); 
         return messages.sort({ sendDate: -1 });  
+    }, 
+
+    updateReadDate: (currentUserId, otherUserId) => { 
+        let messages = queryConversation(currentUserId, otherUserId); 
+        return messages.updateMany({ readDate: undefined }, { readDate: new Date(Date.now()) }); 
     }
     
 } 
+
+function queryConversation(currentUserId, otherUserId) {
+    return Message.find({
+        $or: [ 
+            { 
+                $and: [ 
+                    { sender: currentUserId }, 
+                    { receiver: otherUserId } 
+                ] 
+            }, 
+            {
+                $and: [ 
+                    { sender: otherUserId }, 
+                    { receiver: currentUserId } 
+                ] 
+            }
+        ]
+    }); 
+
+}
 
 function queryMessagesToGet(messagesToGet, userId) {
     let messages = Message.find({}); 

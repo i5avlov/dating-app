@@ -15,9 +15,10 @@ messagesController
 
         const currentUserData = await usersService.getById(currentUserId).lean();
         const otherUserData = await usersService.getById(otherUserId).lean(); 
+
+        await messagesService.updateReadDate(currentUserId, otherUserId); 
         const messagesData = await messagesService.getConversation(currentUserId, otherUserId)
-            .populate('sender receiver')
-            .lean(); 
+            .populate('sender receiver'); 
 
         res.render('messages/conversation', { currentUserData, otherUserData, messagesData }); 
     }) 
