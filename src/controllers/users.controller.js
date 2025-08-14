@@ -22,10 +22,9 @@ usersController
     .get('/:userId/profile', async (req, res) => { 
         const userId = req.params.userId; 
         // const userId = req.user.id; 
-        const userData = await usersService.getById(userId)
-            .lean();  
+        const userData = await usersService.getById(userId);  
 
-        res.render('users/profile', { userData }); 
+        res.render('users/profile', { userData, age: userData.getAge() }); 
     });
 
 usersController
