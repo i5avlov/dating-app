@@ -7,11 +7,11 @@ module.exports = {
         return text.slice(0, charCount) + '...'; 
     }, 
 
-    getPagesList: (pagesCount) => { 
+    getList: (start, end) => { 
         let list = []; 
 
-        for (let i = 0; i < pagesCount; i++) {
-            list.push(i + 1); 
+        for (let i = start; i <= end; i++) {
+            list.push(i); 
         } 
 
         return list; 

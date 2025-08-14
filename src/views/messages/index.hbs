@@ -32,7 +32,7 @@
 
 <div class="paging"> 
     <ul class="pagination mt-4"> 
-        {{#each (getPagesList messagesData.pagesCount)}} 
+        {{#each (getList 1 messagesData.pagesCount)}} 
         <li class="page-item {{markOnEqual this ../messagesData.pageNumber 'active'}}"> 
             <a class="page-link" href="/messages?messagesToGet={{../messagesToGet}}&pageNumber={{this}}&messagesPerPageCount={{../messagesData.perPageCount}}">{{this}}</a>
         </li> 
