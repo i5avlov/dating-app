@@ -7,6 +7,10 @@ module.exports = {
         return text.slice(0, charCount) + '...'; 
     }, 
 
+    capitalize: (text = '') => { 
+        return text.charAt(0).toUpperCase() + text.slice(1); 
+    }, 
+
     getList: (start, end) => { 
         let list = []; 
 
