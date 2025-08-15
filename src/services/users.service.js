@@ -32,8 +32,11 @@ module.exports = {
 
         const paginatedUsers = await pagination.getPaginated(usersQuery, usersCount, pageNumber, usersPerPageCount); 
         // Awaits paginated users query 
-        paginatedUsers.onPageElements = await paginatedUsers.onPageElements
-            .lean(); 
+        // paginatedUsers.onPageElements = await paginatedUsers.onPageElements; 
+        paginatedUsers.onPageElements = await paginatedUsers.onPageElements; 
+        paginatedUsers.onPageElements.forEach(element => {
+            element.age = element.getAge() ; 
+        }); 
 
         return paginatedUsers; 
         
@@ -57,8 +60,13 @@ module.exports = {
     }, 
 
     getById: (userId) => { 
-        return User.findById(userId).populate('likesUsers'); 
+        return User.findById(userId); 
     }, 
+
+    // details: (userId) => { 
+    //     return User.findById(userId).populate
+
+    // }, 
 
     getLikedUsers: (userId) => { 
         return User.findById(userId) 
@@ -101,9 +109,11 @@ function filterUsers(filter = {}) {
 
 function getDate(age) {
     const now = new Date(Date.now()); 
-    const date = new Date(Date.now()).setFullYear(now.getFullYear() - Number(age)); 
+    const yearAgo = now.getFullYear() - Number(age); 
+    const dateAgo = new Date(Date.now()); 
+    dateAgo.setFullYear(yearAgo, now.getMonth(), now.getDate()); 
 
-    return date; 
+    return dateAgo; 
 }
 
 function getAllUsersExceptOne(userId) {
