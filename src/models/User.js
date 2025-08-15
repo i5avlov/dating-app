@@ -25,8 +25,8 @@ userSchema.methods = {
         let age = now.getFullYear() - birthdate.getFullYear(); 
         const yearsAgo = new Date(Date.now()); 
         yearsAgo.setFullYear(now.getFullYear() - age); 
-        if (birthdate.getMonth() < yearsAgo.getMonth() 
-            || (birthdate.getMonth() === yearsAgo.getMonth() && birthdate.getDate() < yearsAgo.getDate())) { 
+        if (yearsAgo.getMonth() < birthdate.getMonth() 
+            || (birthdate.getMonth() === yearsAgo.getMonth() && yearsAgo.getDate() < birthdate.getDate())) { 
                 age -= 1; 
         } 
 
