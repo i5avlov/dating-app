@@ -34,9 +34,9 @@ module.exports = {
         // Awaits paginated users query 
         // paginatedUsers.onPageElements = await paginatedUsers.onPageElements; 
         paginatedUsers.onPageElements = await paginatedUsers.onPageElements; 
-        paginatedUsers.onPageElements.forEach(element => {
-            element.age = element.getAge() ; 
-        }); 
+        // paginatedUsers.onPageElements.forEach(element => {
+        //     element.age = element.getAge() ; 
+        // }); 
 
         return paginatedUsers; 
         
@@ -62,6 +62,13 @@ module.exports = {
     getById: (userId) => { 
         return User.findById(userId); 
     }, 
+
+    // getById: async (userId) => { 
+    //     let user = await User.findById(userId); 
+    //     user.age = user.getAge(); 
+
+    //     return user; 
+    // }, 
 
     // details: (userId) => { 
     //     return User.findById(userId).populate

@@ -13,8 +13,10 @@ messagesController
                 .send('You are trying to send message to yourself'); 
         }
 
-        const currentUserData = await usersService.getById(currentUserId).lean();
-        const otherUserData = await usersService.getById(otherUserId).lean(); 
+        const currentUserData = await usersService.getById(currentUserId);
+        const otherUserData = await usersService.getById(otherUserId); 
+
+        // console.log(otherUserData.age); 
 
         await messagesService.updateReadDate(currentUserId, otherUserId); 
         const messagesData = await messagesService.getConversation(currentUserId, otherUserId)

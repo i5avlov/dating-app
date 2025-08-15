@@ -28,7 +28,7 @@ usersController
         // const userId = req.user.id; 
         const userData = await usersService.getById(userId)
             .populate('likesUsers');  
-        userData.age = userData.getAge(); 
+        // userData.age = userData.getAge(); 
 
         res.render('users/profile', { userData }); 
     });

@@ -17,24 +17,39 @@ const userSchema = new Schema({
     }] 
 }); 
 
-userSchema.methods = { 
-    getAge: function() { 
-        const now = new Date(Date.now()); 
-        const birthdate = new Date(this.dateOfBirth); 
+userSchema.virtual('age').get(function() {
+    const now = new Date(Date.now()); 
+    const birthdate = new Date(this.dateOfBirth); 
 
-        let age = now.getFullYear() - birthdate.getFullYear(); 
-        const yearsAgo = new Date(Date.now()); 
-        yearsAgo.setFullYear(now.getFullYear() - age); 
-        if (yearsAgo.getMonth() < birthdate.getMonth() 
-            || (birthdate.getMonth() === yearsAgo.getMonth() && yearsAgo.getDate() < birthdate.getDate())) { 
-                age -= 1; 
-        } 
+    let age = now.getFullYear() - birthdate.getFullYear(); 
+    const yearsAgo = new Date(Date.now()); 
+    yearsAgo.setFullYear(now.getFullYear() - age); 
+    if (yearsAgo.getMonth() < birthdate.getMonth() 
+        || (birthdate.getMonth() === yearsAgo.getMonth() && yearsAgo.getDate() < birthdate.getDate())) { 
+            age -= 1; 
+    } 
 
-        return age; 
+    return age; 
+}); 
 
-    }
+// userSchema.methods = { 
+//     getAge: function() { 
+//         const now = new Date(Date.now()); 
+//         const birthdate = new Date(this.dateOfBirth); 
 
-}; 
+//         let age = now.getFullYear() - birthdate.getFullYear(); 
+//         const yearsAgo = new Date(Date.now()); 
+//         yearsAgo.setFullYear(now.getFullYear() - age); 
+//         if (yearsAgo.getMonth() < birthdate.getMonth() 
+//             || (birthdate.getMonth() === yearsAgo.getMonth() && yearsAgo.getDate() < birthdate.getDate())) { 
+//                 age -= 1; 
+//         } 
+
+//         return age; 
+
+//     }
+
+// }; 
 
 const User = model('User', userSchema); 
 
