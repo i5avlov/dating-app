@@ -1,6 +1,6 @@
 module.exports = { 
     markOnEqual: (currentOption, targetOption, mark) => { 
-        return currentOption === targetOption ? mark : ''; 
+        return currentOption?.toString() === targetOption?.toString() ? mark : ''; 
     },  
 
     slice: (text = '', charCount = 0) => { 
