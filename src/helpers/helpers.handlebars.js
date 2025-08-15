@@ -14,7 +14,7 @@ module.exports = {
     getList: (start, end) => { 
         let list = []; 
 
-        for (let i = start; i <= end; i++) {
+        for (let i = start; i <= end; i++) { 
             list.push(i); 
         } 
 

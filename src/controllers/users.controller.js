@@ -5,11 +5,14 @@ const usersController = require('express').Router();
 
 usersController 
     .get('/', async (req, res) => { 
-        let { pageNumber, usersPerPageCount } = req.query; 
+        let query = req.query; 
+        const { pageNumber, usersPerPageCount, ...filter } = req.query; 
+        const genders = ['male', 'female']; 
+        const cities = ['Sofia', 'Plovdiv', 'Bourgas']; 
         const userId = req.user?.id; 
-        let paginationData = await usersService.getPaginated(userId, pageNumber, usersPerPageCount); 
+        let paginationData = await usersService.getPaginated(userId, query); 
 
-        res.render('users/index', { paginationData }); 
+        res.render('users/index', { paginationData, filter, genders, cities }); 
     }) 
     .post('/', async (req, res) => { 
         let { usersPerPageCount } = req.body; 

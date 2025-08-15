@@ -7,18 +7,19 @@ module.exports = {
         return User.find({}); 
     }, 
 
-    getPaginated: async (userId, pageNumberValue, usersPerPageCountValue) => { 
+    getPaginated: async (userId, query) => { 
+        let { pageNumber, usersPerPageCount, ...filter } = query; 
         // Values are parsed when not undefined 
         // and set to default when undefined 
-        const pageNumber = pageNumberValue 
-            ? Number(pageNumberValue) 
+        pageNumber = pageNumber 
+            ? Number(pageNumber) 
             : PAGINATION.PAGE_NUMBER; 
-        const usersPerPageCount = usersPerPageCountValue 
-            ? Number(usersPerPageCountValue) 
+        usersPerPageCount = usersPerPageCount 
+            ? Number(usersPerPageCount) 
             : PAGINATION.USERS_PER_PAGE_COUNT; 
 
-        let usersQuery = User.find({}); 
-        let usersCount = await User.find({}).countDocuments(); 
+        let usersQuery = filterUsers(filter); 
+        let usersCount = await filterUsers(filter).countDocuments(); 
 
         if (userId) {
             // Query of all users except current user 
@@ -73,6 +74,37 @@ module.exports = {
     }
     
 }; 
+
+function filterUsers(filter = {}) { 
+    let query = User.find({}); 
+
+    if (filter.gender) { 
+        query = query.where({ gender: filter.gender }); 
+    } 
+
+    if (filter.minAge) { 
+        const maxDate = getDate(filter.minAge); 
+        query = query.where({ dateOfBirth: { $lt: maxDate } }); 
+    } 
+
+    if (filter.maxAge) { 
+        const minDate = getDate(filter.maxAge); 
+        query = query.where({ dateOfBirth: { $gt: minDate } }); 
+    } 
+
+    if (filter.city) { 
+        query = query.where({ city: filter.city }); 
+    } 
+
+    return query; 
+} 
+
+function getDate(age) {
+    const now = new Date(Date.now()); 
+    const date = new Date(Date.now()).setFullYear(now.getFullYear() - Number(age)); 
+
+    return date; 
+}
 
 function getAllUsersExceptOne(userId) {
     return User.find({})

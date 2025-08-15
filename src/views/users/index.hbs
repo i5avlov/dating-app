@@ -1,5 +1,52 @@
 <h2>Members</h2> 
 
+<div class="filters">
+    <form method="GET" class="d-flex">
+        <div class="form-group">
+            <label for="" class="form-label">Gender</label> 
+            <select name="gender" type="text" class="form-control"> 
+                <option value=""></option>
+                {{#each genders}}
+                <option value="{{this}}" {{markOnEqual this ../filter.gender "selected"}}>{{capitalize this}}</option> 
+                {{/each}}
+            </select>            
+        </div> 
+
+        <fieldset class="d-flex ms-2"> 
+            <div class="form-group">
+                <label for="" class="form-label">From</label> 
+                <select name="minAge" type="text" class="form-control"> 
+                    <option value=""></option> 
+                    {{#each (getList 18 90)}}
+                    <option value="{{this}}" {{markOnEqual this ../filter.minAge "selected"}}>{{this}}</option> 
+                    {{/each}} 
+                </select> 
+            </div> 
+            <div class="form-group ms-2">
+                <label for="" class="form-label">To</label> 
+                <select name="maxAge" type="text" class="form-control"> 
+                    <option value=""></option> 
+                    {{#each (getList 18 90)}}
+                    <option value="{{this}}" {{markOnEqual this ../filter.maxAge "selected"}}>{{this}}</option> 
+                    {{/each}}
+                </select>
+            </div> 
+        </fieldset> 
+
+        <div class="form-group ms-2">
+            <label for="" class="form-label">City</label> 
+            <select name="city" type="text" class="form-control"> 
+                <option value=""></option>
+                {{#each cities}}
+                <option value="{{this}}" {{markOnEqual this ../filter.city "selected"}}>{{this}}</option> 
+                {{/each}}
+            </select>
+        </div> 
+
+        <button class="btn btn-success align-self-end ms-2">Search</button> 
+    </form>
+</div>
+
 <div class="members-list"> 
     <div class="row gy-3">
         {{#each paginationData.onPageElements}} 
