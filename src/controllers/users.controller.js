@@ -10,6 +10,7 @@ usersController
         const genders = ['male', 'female']; 
         const cities = ['Sofia', 'Plovdiv', 'Bourgas']; 
         const userId = req.user?.id; 
+
         let paginationData = await usersService.getPaginated(userId, query); 
 
         res.render('users/index', { paginationData, filter, genders, cities }); 
@@ -25,9 +26,11 @@ usersController
     .get('/:userId/profile', async (req, res) => { 
         const userId = req.params.userId; 
         // const userId = req.user.id; 
-        const userData = await usersService.getById(userId);  
+        const userData = await usersService.getById(userId)
+            .populate('likesUsers');  
+        userData.age = userData.getAge(); 
 
-        res.render('users/profile', { userData, age: userData.getAge() }); 
+        res.render('users/profile', { userData }); 
     });
 
 usersController
