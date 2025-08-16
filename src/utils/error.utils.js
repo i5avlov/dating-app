@@ -15,7 +15,7 @@ module.exports = {
         
         if (error instanceof ValidationError) { 
             errors[error.path] = { message: error.message }; 
-        }
+        } 
 
         return errors; 
 

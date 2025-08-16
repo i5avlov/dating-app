@@ -1,0 +1,17 @@
+<h2>Add City</h2> 
+
+<form method="POST">
+    <div class="form-group">
+        <label for="" class="form-label">Name</label> 
+        <input name="name" type="text" class="form-control" value="{{cityData.name}}"> 
+
+        {{#if errors.name}} 
+        <span class="text-danger small">{{errors.name.message}}</span> 
+        {{/if}} 
+    </div> 
+
+    <div class="buttons mt-3">
+        <button type="submit" class="btn btn-outline-success">Add City</button> 
+    </div> 
+
+</form> 
