@@ -1,16 +1,20 @@
+const authController = require('express').Router(); 
 const { TOKEN } = require('../constants/security.constants');
 const guards = require('../middlewares/guards.middlewares');
 const authService = require('../services/auth.service'); 
+const gendersService = require('../services/genders.service'); 
+const citiesService = require('../services/cities.service'); 
 const { normalize } = require('../utils/error.utils');
 const loginValidator = require('../validators/login.validator');
 const registerValidator = require('../validators/register.validator'); 
 const cookieParser = require('cookie-parser'); 
 
-const authController = require('express').Router(); 
-
 authController
-    .get('/register', guards.isGuest(), (req, res) => { 
-        res.render('auth/register'); 
+    .get('/register', guards.isGuest(), async (req, res) => { 
+        const genders = await gendersService.getAll(); 
+        const cities = await citiesService.getAll(); 
+
+        res.render('auth/register', { genders, cities }); 
     }) 
     .post('/register', guards.isGuest(), registerValidator.validation(), async (req, res) => { 
         const registerData = req.body; 
@@ -25,8 +29,12 @@ authController
             res.cookie(TOKEN.AUTH_COOKIE_NAME, token); 
             res.redirect('/'); 
         } catch (err) { 
+            const genders = await gendersService.getAll(); 
+            const cities = await citiesService.getAll(); 
+
             // console.log(err); 
-            return res.render('auth/register', { registerData, errors: normalize(err) }); 
+
+            return res.render('auth/register', { registerData, genders, cities, errors: normalize(err) }); 
         } 
         
     }); 
