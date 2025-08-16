@@ -1,31 +1,48 @@
 
 
 <div class="row"> 
-    <div class="col-md-3">
-        <div class="image-holder image-holder-profile"> 
+    <div class="col-md-3"> 
+        <div class="image-holder image-holder-profile rounded"> 
             <img src="{{userData.imageUrl}}" alt="">
         </div> 
+
+        {{#if (isNotCurrentUser user.id userData._id)}}
+        <div class="button-group mt-3">
+            <a href="/messages/users/{{userData._id}}/conversation" class="btn btn-outline-success d-block">Send Message</a> 
+        </div>
+        {{/if}} 
+
+        
     </div>
 
     <div class="col-md-7"> 
-        <h2 class="h4">{{userData.username}}</h2> 
-        <p>User Profile</p>  
-        <dl class="profile-info"> 
-            <div class="d-flex">
-                <dt>Description</dt><dd class="ms-2">{{userData.description}}</dd> 
+        <dl class="profile-info d-flex mt-2"> 
+            <div class=""> 
+                <dt>City</dt><dd class="">{{userData.city}}</dd>
             </div> 
-            <div class="d-flex">
-                <dt>City</dt><dd class="ms-2">{{userData.city}}</dd>
+            <div class="ms-3"> 
+                <dt>Age</dt><dd class="">{{userData.age}}</dd> 
             </div> 
-            <div class="d-flex">
-                <dt>Age</dt><dd class="ms-2">{{userData.age}}</dd> 
+            <div class="ms-3"> 
+                <dt>Gender</dt><dd class="">{{capitalize userData.gender}}</dd> 
             </div>
         </dl> 
 
-        {{#if (isNotCurrentUser user.id userData._id)}}
-        <div class="button-group">
-            <a href="/messages/users/{{userData._id}}/conversation" class="btn btn-outline-success">Send Message</a> 
-        </div>
-        {{/if}} 
+        <h2 class="h4 mb-0">{{userData.username}}</h2> 
+        <p>User Profile</p>  
+
+        <dl class="profile-info"> 
+            <div class="">
+                <dt>Description</dt><dd class="">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus aliquam quia ratione excepturi nemo ducimus quos, modi numquam eaque veritatis doloremque saepe iste maiores optio, soluta quibusdam ullam perspiciatis accusamus!</dd> 
+            </div> 
+
+            <div class="">
+                <dt>Interests</dt><dd class="">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tenetur provident quam officia tempora inventore, recusandae veritatis ducimus animi hic cupiditate dolorum doloribus illum, aspernatur pariatur nihil voluptate expedita adipisci dignissimos!</dd> 
+            </div> 
+
+            <div class="">
+                <dt>Photos</dt><dd class="">Photos</dd> 
+            </div>
+        </dl> 
     </div> 
 </div>
