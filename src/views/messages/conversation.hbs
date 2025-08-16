@@ -18,14 +18,14 @@
     </div> 
 
     <div class="col-md-6"> 
-        <div class="user d-flex align-items-center">
-            <div class="image-holder image-holder-user"> 
+        <div class="user d-flex align-items-center mb-4"> 
+            <div class="image-holder image-holder-user image-holder-user-receiver-conversation"> 
                 <img src="{{otherUserData.imageUrl}}" alt="">
             </div> 
 
             <div class="ms-2"> 
                 <p class="mb-0">{{otherUserData.username}}</p> 
-                <dl class="profile-info d-flex"> 
+                <dl class="profile-info d-flex mb-1"> 
                     <div class="d-flex">
                         <dt class="">City</dt><dd class="ms-1">{{otherUserData.city}}</dd>
                     </div> 
@@ -35,6 +35,7 @@
                 </dl> 
                 <a class="btn btn-outline-success" href="/users/{{otherUserData._id}}/profile">View Profile</a> 
             </div> 
+            
         </div> 
         
         <form method="POST">

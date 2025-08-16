@@ -35,6 +35,10 @@ footer {
     width: 2rem; height: 2rem; 
 } 
 
+.image-holder-user-receiver-conversation {
+    width: 6rem; height: 7rem; 
+} 
+
 .image-holder img { 
     display: inline-block; 
     object-fit: contain; 
@@ -48,6 +52,10 @@ footer {
 
 .image-holder-user img { 
     border-radius: 100px; 
+} 
+
+.image-holder-user-receiver-conversation img {
+    border-radius: 4px; 
 } 
 
 .message {
