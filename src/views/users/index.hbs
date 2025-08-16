@@ -7,7 +7,7 @@
             <select name="gender" type="text" class="form-control"> 
                 <option value=""></option>
                 {{#each genders}}
-                <option value="{{this}}" {{markOnEqual this ../filter.gender "selected"}}>{{capitalize this}}</option> 
+                <option value="{{name}}" {{markOnEqual name ../filter.gender "selected"}}>{{capitalize name}}</option> 
                 {{/each}}
             </select>            
         </div> 
@@ -38,7 +38,7 @@
             <select name="city" type="text" class="form-control"> 
                 <option value=""></option>
                 {{#each cities}}
-                <option value="{{this}}" {{markOnEqual this ../filter.city "selected"}}>{{this}}</option> 
+                <option value="{{name}}" {{markOnEqual name ../filter.city "selected"}}>{{name}}</option> 
                 {{/each}}
             </select>
         </div> 

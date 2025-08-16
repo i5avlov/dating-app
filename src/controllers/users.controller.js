@@ -1,16 +1,18 @@
+const usersController = require('express').Router(); 
 const { PAGINATION, USER_LIKE_POST_RESPONSE_CODE } = require('../constants/users.constants');
 const guards = require('../middlewares/guards.middlewares');
-const usersService = require('../services/users.service');
-
-const usersController = require('express').Router(); 
+const usersService = require('../services/users.service'); 
+const gendersService = require('../services/genders.service'); 
+const citiesService = require('../services/cities.service'); 
 
 usersController 
     .get('/', async (req, res) => { 
-        let query = req.query; 
-        const { pageNumber, usersPerPageCount, ...filter } = req.query; 
-        const genders = ['male', 'female']; 
-        const cities = ['Sofia', 'Plovdiv', 'Bourgas']; 
         const userId = req.user?.id; 
+        let query = req.query;  
+        const { pageNumber, usersPerPageCount, ...filter } = req.query; 
+
+        const genders = await gendersService.getAll(); 
+        const cities = await citiesService.getAll(); 
 
         let paginationData = await usersService.getPaginated(userId, query); 
 
