@@ -1,9 +1,10 @@
 const messagesController = require('express').Router(); 
+const guards = require('../middlewares/guards.middlewares');
 const messagesService = require('../services/messages.service');
 const usersService = require('../services/users.service'); 
 
 messagesController
-    .get('/users/:userId/conversation', async (req, res) => { 
+    .get('/users/:userId/conversation', guards.isAuth(), async (req, res) => { 
         const currentUserId = req.user.id; 
         const otherUserId = req.params.userId; 
 
@@ -24,7 +25,7 @@ messagesController
 
         res.render('messages/conversation', { currentUserData, otherUserData, messagesData }); 
     }) 
-    .post('/users/:userId/conversation', async (req, res) => { 
+    .post('/users/:userId/conversation', guards.isAuth(), async (req, res) => { 
         const sourceUserId = req.user.id; 
         const targetUserId = req.params.userId; 
         const messageData = req.body; 
@@ -36,7 +37,7 @@ messagesController
     }); 
 
 messagesController
-    .get('/', async (req, res) => { 
+    .get('/', guards.isAuth(), async (req, res) => { 
         const { messagesToGet, pageNumber, messagesPerPageCount } = req.query; 
         const currentUserId = req.user.id; 
 
@@ -48,7 +49,7 @@ messagesController
 
         res.render('messages/index', { currentUserData, messagesData, messagesToGet }); 
     }) 
-    .post('/', async (req, res) => { 
+    .post('/', guards.isAuth(), async (req, res) => { 
         let { messagesToGet, messagesPerPageCount } = req.body; 
         // let messagesData = await messagesService.getPaginated(1, messagesPerPageCount); 
 

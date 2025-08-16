@@ -1,4 +1,5 @@
 const { TOKEN } = require('../constants/security.constants');
+const guards = require('../middlewares/guards.middlewares');
 const authService = require('../services/auth.service'); 
 const { normalize } = require('../utils/error.utils');
 const loginValidator = require('../validators/login.validator');
@@ -8,10 +9,10 @@ const cookieParser = require('cookie-parser');
 const authController = require('express').Router(); 
 
 authController
-    .get('/register', (req, res) => { 
+    .get('/register', guards.isGuest(), (req, res) => { 
         res.render('auth/register'); 
     }) 
-    .post('/register', registerValidator.validation(), async (req, res) => { 
+    .post('/register', guards.isGuest(), registerValidator.validation(), async (req, res) => { 
         const registerData = req.body; 
         const errors = registerValidator.validate(req); 
             
@@ -31,10 +32,10 @@ authController
     }); 
 
 authController
-    .get('/login', (req, res) => { 
+    .get('/login', guards.isGuest(), (req, res) => { 
         res.render('auth/login'); 
     }) 
-    .post('/login', loginValidator.validation(), async (req, res) => { 
+    .post('/login', guards.isGuest(), loginValidator.validation(), async (req, res) => { 
         const loginData = req.body; 
         const errors = loginValidator.validate(req); 
             
@@ -53,7 +54,7 @@ authController
     }); 
 
 authController
-    .post('/logout', (req, res) => { 
+    .post('/logout', guards.isAuth(), (req, res) => { 
         res.clearCookie(TOKEN.AUTH_COOKIE_NAME); 
         res.redirect('/'); 
     });

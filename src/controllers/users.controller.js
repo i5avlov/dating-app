@@ -1,4 +1,5 @@
 const { PAGINATION, USER_LIKE_POST_RESPONSE_CODE } = require('../constants/users.constants');
+const guards = require('../middlewares/guards.middlewares');
 const usersService = require('../services/users.service');
 
 const usersController = require('express').Router(); 
@@ -23,7 +24,7 @@ usersController
     }); 
 
 usersController 
-    .get('/:userId/profile', async (req, res) => { 
+    .get('/:userId/profile', guards.isAuth(), async (req, res) => { 
         const userId = req.params.userId; 
         // const userId = req.user.id; 
         const userData = await usersService.getById(userId)
@@ -34,7 +35,7 @@ usersController
     });
 
 usersController
-    .post('/like', async (req, res) => { 
+    .post('/like', guards.isAuth(), async (req, res) => { 
         const userId = req.user.id; 
         const otherUserId = req.body['user-id']; 
 
