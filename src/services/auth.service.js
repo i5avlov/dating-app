@@ -2,7 +2,7 @@ const { TOKEN, PASSWORD } = require('../constants/security.constants');
 const ValidationError = require('../errors/ValidationError');
 const User = require('../models/User'); 
 const bcrypt = require('bcrypt'); 
-const jwt = require('jsonwebtoken'); 
+const userUtils = require('../utils/user.utils'); 
 
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
         } = registerData; 
 
         // User exists 
-        if (await userExistsByEmail(email)) { 
+        if (await userUtils.userExistsByEmail(email)) { 
             throw new ValidationError('email', 'User exists'); 
         }
 
@@ -29,7 +29,7 @@ module.exports = {
         }); 
 
         // Generating authentication  token
-        const token = generateToken(user); 
+        const token = userUtils.generateToken(user); 
 
         return token; 
 
@@ -39,7 +39,7 @@ module.exports = {
         const { email, password } = loginData; 
 
         // Get user by email 
-        const user = await getUserByEmail(email); 
+        const user = await userUtils.getUserByEmail(email); 
         // If user exists, get saved password and compare with posted password 
         const passwordMatch = user !== null && await bcrypt.compare(password, user.password); 
 
@@ -49,29 +49,8 @@ module.exports = {
         } 
 
         // Generating authentication token 
-        const token = generateToken(user); 
+        const token = userUtils.generateToken(user); 
 
         return token; 
     }
-} 
-
-async function userExistsByEmail(email) {
-    const user = await User.findOne({ email: email }); 
-    return user !== null; 
-} 
-
-function getUserByEmail(email) {
-    return User.findOne({ email: email }); 
-} 
-
-function generateToken(user) { 
-    const payload = {
-        id: user._id, 
-        username: user.username, 
-        photoUrl: user.imageUrl 
-    }; 
-
-    const token = jwt.sign(payload, TOKEN.SECRET_KEY); 
-
-    return token; 
-}
+}; 
