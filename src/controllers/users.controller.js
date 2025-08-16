@@ -4,6 +4,7 @@ const guards = require('../middlewares/guards.middlewares');
 const usersService = require('../services/users.service'); 
 const gendersService = require('../services/genders.service'); 
 const citiesService = require('../services/cities.service'); 
+const errorUtils = require('../utils/error.utils'); 
 
 usersController 
     .get('/', async (req, res) => { 
@@ -34,6 +35,26 @@ usersController
         // userData.age = userData.getAge(); 
 
         res.render('users/profile', { userData }); 
+    }); 
+
+usersController 
+    .get('/edit', guards.isAuth(), async (req, res) => { 
+        const userId = req.user.id; 
+        const userData = await usersService.getById(userId);  
+
+        res.render('users/edit', { userData }); 
+    }) 
+    .post('/edit', guards.isAuth(), async (req, res) => { 
+        const userId = req.user.id; 
+        const updateData = req.body; 
+
+        try { 
+            const updateSuccess = await usersService.update(userId, updateData); 
+        } catch (err) { 
+            res.render('users/edit', { updateData, errors: errorUtils.normalize(err) }); 
+        }
+
+        
     });
 
 usersController

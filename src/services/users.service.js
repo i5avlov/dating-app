@@ -1,6 +1,10 @@
 const User = require('../models/User'); 
 const pagination = require('../utils/pagination.utils'); 
 const { PAGINATION } = require('../constants/users.constants'); 
+const citiesService = require('./cities.service');
+const gendersService = require('./genders.service');
+const ValidationError = require('../errors/ValidationError'); 
+const userUtils = require('../utils/user.utils'); 
 
 module.exports = { 
     getAll: () => { 
@@ -74,6 +78,32 @@ module.exports = {
     //     return User.findById(userId).populate
 
     // }, 
+
+    update: async (userId, updateData) => { 
+        const { username, email, imageUrl, description, dateOfBirth, gender, city } = updateData; 
+
+        // Email exists 
+        if (await userUtils.userExistsByEmail(email)) { 
+            throw new ValidationError('email', 'User exists'); 
+        }
+
+        // City exists not
+        if (false === await citiesService.existsByName(city)) { 
+            throw new ValidationError('city', 'City does not exist'); 
+
+        } 
+
+        // Gender exists not 
+        if (false === await gendersService.existsByName(gender)) { 
+            throw new ValidationError('gender', 'Gender does not exist');
+
+        } 
+
+        return User.findByIdAndUpdate(userId, {
+            username, email, imageUrl, description, dateOfBirth, gender, city
+        }); 
+
+    }, 
 
     getLikedUsers: (userId) => { 
         return User.findById(userId) 

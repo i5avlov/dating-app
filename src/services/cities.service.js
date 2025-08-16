@@ -39,6 +39,8 @@ module.exports = {
 
     }, 
 
+    existsByName 
+
 }; 
 
 async function existsByName(cityName) { 

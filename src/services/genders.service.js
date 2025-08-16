@@ -41,6 +41,8 @@ module.exports = {
 
     }, 
 
+    existsByName 
+
 }; 
 
 async function existsByName(genderName) { 
