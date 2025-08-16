@@ -1,0 +1,26 @@
+<h2>Add Gender</h2> 
+
+<form method="POST">
+    <div class="form-group">
+        <label for="" class="form-label">Name</label> 
+        <input name="name" type="text" class="form-control" value="{{genderData.name}}"> 
+
+        {{#if errors.name}} 
+        <span class="text-danger small">{{errors.name.message}}</span> 
+        {{/if}} 
+    </div> 
+
+    <div class="form-group">
+        <label for="" class="form-label">Description</label> 
+        <textarea name="description" type="text" class="form-control">{{genderData.description}}</textarea>
+
+        {{#if errors.description}} 
+        <span class="text-danger small">{{errors.description.message}}</span> 
+        {{/if}}
+    </div> 
+
+    <div class="buttons mt-3">
+        <button type="submit" class="btn btn-outline-success">Add Gender</button> 
+    </div> 
+
+</form> 
