@@ -53,6 +53,7 @@ usersController
 
         try { 
             const updateSuccess = await usersService.update(userId, updateData); 
+            res.redirect(`/users/${userId}/profile`); 
         } catch (err) { 
             res.render('users/edit', { updateData, errors: errorUtils.normalize(err) }); 
         }
