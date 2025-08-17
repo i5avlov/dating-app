@@ -80,12 +80,7 @@ module.exports = {
     // }, 
 
     update: async (userId, updateData) => { 
-        const { username, email, imageUrl, description, dateOfBirth, gender, city } = updateData; 
-
-        // Email exists 
-        if (await userUtils.userExistsByEmail(email)) { 
-            throw new ValidationError('email', 'User exists'); 
-        }
+        const { username, imageUrl, description, dateOfBirth, gender, city } = updateData; 
 
         // City exists not
         if (false === await citiesService.existsByName(city)) { 
@@ -100,7 +95,7 @@ module.exports = {
         } 
 
         return User.findByIdAndUpdate(userId, {
-            username, email, imageUrl, description, dateOfBirth, gender, city
+            username, imageUrl, description, dateOfBirth, gender, city
         }); 
 
     }, 
