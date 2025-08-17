@@ -40,9 +40,12 @@ usersController
 usersController 
     .get('/edit', guards.isAuth(), async (req, res) => { 
         const userId = req.user.id; 
-        const userData = await usersService.getById(userId);  
+        const updateData = await usersService.getById(userId);  
 
-        res.render('users/edit', { userData }); 
+        const genders = await gendersService.getAll(); 
+        const cities = await citiesService.getAll(); 
+
+        res.render('users/edit', { updateData, genders, cities }); 
     }) 
     .post('/edit', guards.isAuth(), async (req, res) => { 
         const userId = req.user.id; 
